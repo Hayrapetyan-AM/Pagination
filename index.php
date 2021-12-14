@@ -15,7 +15,7 @@
 		require_once __DIR__.'\dbConn.php';
 		require_once __DIR__.'\paginateClass.php';
 
-		$test = new Pagination($db, 3);
+		$test = new Pagination($db, 1);
 		$table = "tasks";
 		$test->Paginate($table);
 		
