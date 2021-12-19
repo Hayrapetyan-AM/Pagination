@@ -35,7 +35,7 @@ public function Paginate( string $table)
 
 
 
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
 
 
@@ -58,6 +58,7 @@ if (!isset($_GET['pageno']) || $_GET['pageno'] == 0)
 		  	
 		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= --$_GET['pageno'] ?>">Previous</a></li>
 
+		  
 			<li class="page-item"><a class="page-link text-dark bg-warning" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno'] ?>"><?= ++$_GET['pageno'];?></a></li>
 
 		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno']+1 ?>"><?= $_GET['pageno']+1;?></a></li>
@@ -69,6 +70,7 @@ if (!isset($_GET['pageno']) || $_GET['pageno'] == 0)
 		    <li class="page-item"><a class="page-link text-dark" href="#"><?= $this->total; ?></a></li>
 
 		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno']+=1 ?>">Next</a></li>
+
 		  </ul>
 		</nav>
 		</div>
@@ -77,7 +79,7 @@ if (!isset($_GET['pageno']) || $_GET['pageno'] == 0)
 			}
 
 
-		
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 
 
 		private function config($table = "tasks")
@@ -98,5 +100,7 @@ if (!isset($_GET['pageno']) || $_GET['pageno'] == 0)
 				}
 
 		}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 	}
  ?>
