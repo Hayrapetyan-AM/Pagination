@@ -8,11 +8,13 @@
 			private $limit;
 			private $offset;
 			private $total;
+			private $pageno;
 			function __construct($dbConn, $alimit)
 			{
 				$this->db = $dbConn;
 				$this->limit = $alimit;
 				self::config();
+				//self::test();
 				self::addButtons();
 			}
 
@@ -41,41 +43,29 @@ public function Paginate( string $table)
 
 			private function addButtons()
 			{
-
-
-
-if (!isset($_GET['pageno']) || $_GET['pageno'] == 0) 
-	{
-		$_GET['pageno'] = 1;
-
-	}
-
+			
 				?>
 
 		<div class="fixed-bottom">
-			<nav aria-label="Page navigation example ">
-		  <ul class="pagination ">
-		  	
-		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= --$_GET['pageno'] ?>">Previous</a></li>
-
-		  
-			<li class="page-item"><a class="page-link text-dark bg-warning" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno'] ?>"><?= ++$_GET['pageno'];?></a></li>
-
-		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno']+1 ?>"><?= $_GET['pageno']+1;?></a></li>
-
-		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno']+2 ?>"><?= $_GET['pageno']+2;?></a></li>
-
-		    <li class="page-item"><a class="page-link text-dark" href="#">...</a></li>
-
-		    <li class="page-item"><a class="page-link text-dark" href="#"><?= $this->total; ?></a></li>
-
-		    <li class="page-item"><a class="page-link text-dark" href="<? $_SERVER['PHP_SELF'] ?>?pageno=<?= $_GET['pageno']+=1 ?>">Next</a></li>
-
-		  </ul>
-		</nav>
+			<nav aria-label="Пример навигации по страницам">
+				  <ul class="pagination">
+				    <li class="page-item">
+				      <a class="page-link" href="index.php?pageno=<?= $this->pageno-1; ?>" aria-label="Предыдущая">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    <li class="page-item"><a class="page-link" href="index.php?pageno=1">1</a></li>
+				    <li class="page-item"><a class="page-link" href="#">2</a></li>
+				    <li class="page-item"><a class="page-link" href="index.php?pageno=<?= $this->total; ?>"><?= $this->total?></a></li>
+				    <li class="page-item">
+				      <a class="page-link" href="index.php?pageno=<?= $this->pageno+1; ?>" aria-label="Следующая">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+			</nav>
 		</div>
-				<? $offset = ($_GET['pageno']-2) * $this->limit;
-					$this->offset = $offset;
+				<? 
 			}
 
 
@@ -90,17 +80,29 @@ if (!isset($_GET['pageno']) || $_GET['pageno'] == 0)
 				//echo $_GET['pageno'] . $total_query['COUNT(*)'] . $this->limit;
 			} catch (Exception $e) {
 				echo "Error ". $e->getMessage();
+			}	
+			if (!isset($_GET['pageno']) || $_GET['pageno'] == 0) 
+			{
+				$_GET['pageno'] = 1;
+
 			}
 				$this->total = $total_query['COUNT(*)'];
+				$this->pageno = $_GET['pageno'];
+				$offset = ($_GET['pageno'] * $this->limit)-1;
+				$this->offset = $offset;
 
-				if ($_GET['pageno'] > ($total_query['COUNT(*)'] / $this->limit)) 
-				{
-					echo '<div class=" container alert alert-danger text-center">There is no content here!</div>';
-					//exit(); 
-				}
+				// if ($_GET['pageno'] > ($total_query['COUNT(*)'] / $this->limit+1)) 
+				// {
+				// 	echo '<div class=" container alert alert-danger text-center">There is no content here!</div>';
+				// 	//exit(); 
+				// }
 
 		}
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------//		
+
+		private function test(){
+			var_dump($this);
+		}
 	}
  ?>
