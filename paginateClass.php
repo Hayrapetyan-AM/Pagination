@@ -10,21 +10,23 @@
 			private $total;
 			private $pageno;
 			private $pages;
-			function __construct($dbConn, $alimit)
+			private $table;
+			function __construct($dbConn, $alimit, $atable)
 			{
 				$this->db = $dbConn;
 				$this->limit = $alimit;
+				$this->table = $atable;
 				self::config();
 				self::addButtons();
+				self::Paginate();
 			}
 
 
 
-public function Paginate( string $table) 
+public function Paginate() 
 		{ 
-
 				try {
-						$query = $this->db->query("SELECT * FROM ".$table." LIMIT ".$this->limit." OFFSET ".$this->offset." ");
+						$query = $this->db->query("SELECT * FROM ".$this->table." LIMIT ".$this->limit." OFFSET ".$this->offset." ");
 					} catch (Exception $e) {
 					echo "Error ". $e->getMessage();
 				}
@@ -33,7 +35,7 @@ public function Paginate( string $table)
 				while ($row = $query->fetch(PDO::FETCH_OBJ)) 
 					{
 						echo '<h5>';
-						echo $row->task;
+						echo $row->nickname;
 						echo '</h5>';
 					}
 			?></div><?		
@@ -72,10 +74,10 @@ public function Paginate( string $table)
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------//		
 
 
-		private function config($table = "tasks")
+		private function config()
 		{
 					try {
-				$total_query = $this->db->query("SELECT COUNT(*) FROM ".$table."");
+				$total_query = $this->db->query("SELECT COUNT(*) FROM ".$this->table."");
 				$total_query = $total_query->fetch(PDO::FETCH_ASSOC);
 			} catch (Exception $e) {
 				echo "Error ". $e->getMessage();

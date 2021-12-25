@@ -15,9 +15,8 @@
 		require_once __DIR__.'\dbConn.php';
 		require_once __DIR__.'\paginateClass.php';
 
-		$test = new Pagination($db, 2);
-		$table = "tasks";
-		$test->Paginate($table);
+		$test = new Pagination($db, 2, "users"); // passing db connection and limit of items per page (LIMIT) and table name
+		
 		
 ?>
 </body>
