@@ -13,8 +13,9 @@ After this, you have to do some other changes. Nearby is the piece of Paginate()
 
 public function Paginate() 
         { 
-                ......
 
+
+           ......
             ?><div class="text-center mt-5"><?
                 while ($row = $query->fetch(PDO::FETCH_OBJ)) 
                     {
